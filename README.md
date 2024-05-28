@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a simple command-line interface to upload files to [0x0.st](0x0.st), with support for deleting files that you have uploaded.
+This is a simple command-line interface to upload files to [0x0.st](https://0x0.st), with support for deleting files that you have uploaded.
 To use, download the script `0x0` and then make it executable with `chmod +x 0x0`.
 It may be helpful to then move this script into a folder in your PATH.
 
