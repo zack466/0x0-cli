@@ -13,6 +13,8 @@ OXO_URL = "https://0x0.st"
 
 ENTRIES_PATH = f"{STORAGE_DIR}/{ENTRIES_FILENAME}"
 
+HEADERS = { 'User-Agent': '0x0-cli/1.0' }
+
 def is_url(path):
     return path.startswith("http://") or path.startswith("https://")
 
@@ -42,7 +44,7 @@ def delete_file(entries, path):
         token = prev['token']
         if len(token) > 0:
             data = { "token": token, "delete": " " }
-            req = requests.post(prev['url'], data=data)
+            req = requests.post(prev['url'], data=data, headers=HEADERS)
             entries.pop(filename)
             if req.status_code == 404:
                 print("File already deleted or expired.")
@@ -73,7 +75,7 @@ def upload_file(entries, path, expires=None):
     if expires is not None:
         files['expires'] = expires
 
-    req = requests.post(OXO_URL, files=files)
+    req = requests.post(OXO_URL, files=files, headers=HEADERS)
     url = str(req.text).strip()
     token = str(req.headers["X-Token"]).strip() if "X-Token" in req.headers else ""
 
@@ -88,7 +90,7 @@ def upload_remote(entries, path, expires=None):
     if expires is not None:
         data['expires'] = expires
 
-    req = requests.post(OXO_URL, data=data)
+    req = requests.post(OXO_URL, data=data, headers=HEADERS)
     url = str(req.text).strip()
     token = str(req.headers["X-Token"]).strip() if "X-Token" in req.headers else ""
     if len(token) > 0:
